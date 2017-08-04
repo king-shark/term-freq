@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+
+<h1>This is a Heading</h1>
+<p>This is a paragraph.</p>
+<textarea id = "myTextArea"
+	  rows = "3"
+	  cols = "80"></textarea>
+<button type = "button" onclick="countText(document.getElementById('myTextArea').value)">
+	Click Me
+  </button>
+<script>
+function countText(text){
+	//initialize the text input into a string of individual words and punctuation separated by a space
+	if (text != ""){
+	var textArray = text.split("\n").join(" ").split("\f").join(" ").split("\r").join(" ").split(":").join(" : ").split(",").join(" , ").split(".").join(" . ").split("\"").join(" \" ").split(";").join(" ; ").split(" ");
+	console.log(textArray)	
+  	var wordCountObject = {};
+    var notfound = true;
+  	for (x = 0; x < textArray.length; x++){
+		if (textArray[x] != ""){
+			if (x == 0){
+				wordCountObject[textArray[x]] = 1;
+			}
+			if (x != 0){
+				if (wordCountObject[textArray[x]] == undefined){
+					wordCountObject[textArray[x]] = 1;
+				}
+				else{
+					wordCountObject[textArray[x]]++;
+				}
+			}
+		}		
+	}	
+	console.log(wordCountObject);
+	return wordCountObject;
+	}
+	console.log("nothing to parse");
+}
+
+</script>
+</body>
+</html>
