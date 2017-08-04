@@ -1,41 +1,32 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-	<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<script>
-			
-			var myVariable = "Hello world!"; //there's three types, string, boolean, number
-			var myNumber = "123"; //right now this is a string
-			myNumber = parseInt(myNumber); // this converted it to a number
-			myNumber = 123; // or this
-			myNumber++; //or myNumber += 1;
-			var xyz = { 
-				"x": "xyz", 
-				"y": "abc"
-			}; 
-			var objectVersion = new Object();
-			objectVersion.x = "xyz";
-			objectVersion["x"] = "xyz";
-			console.log("obj.x: " + objectVersion.x + ", obj['x']: " + objectVersion["x"] + ", xyz.x: " + xyz.x);
-			//so first argument here is the message to print, where second argument (xyz) is printed as an inspectable object
-			console.log("hello world! myNumber: " + myNumber, xyz);
-			console.log("hello world 2! myNumber: " + myNumber, { "a": xyz, "b": myNumber});
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+<script src="TermFreq.js"></script>
+</head>
+<body>
 
-			//here's some example text i want you to count frequency of
-			var textToCount = "the fox did whatever to the dog. then i said, hey fox, why are you jumping over that dog? that's dangerous.";
+<h1>This is a Heading</h1>
+<p>This is a paragraph.</p>
+<textarea id = "myTextArea"
+	rows = "3"
+	cols = "80"></textarea>
+<button type = "button" onclick="countText(document.getElementById('myTextArea').value)">
+	Click Me
+	</button>
+<script>
 
-			//i want it to print out like this, remember to remove periods and commas and stuff
-			//don't worry about list printing alphabetically for now
-			// the: 2
-			// fox: 2
-			// dangerous: 1
-			
-			function countTerms(termText, someOtherVar) {
-				console.log("hint", termText.split(" "));
-			}
+function countText(text){
+	var tf = new TermFreq(text);
+	var termList = tf.terms;
+	console.log("blah ", termList);
+	for (var x = 0; x < termList.length; x++){
+		var word = termList[x];
+		var count = tf.getCount(word);
+		console.log("word: " + word + " count: " + count);
+	}
+}
 
-			countTerms(textToCount, "blah");
-
-
-		</script>
-	</head>
+</script>
+</body>
 </html>
