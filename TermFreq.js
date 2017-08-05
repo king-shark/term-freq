@@ -3,7 +3,7 @@ class TermFreq{
     	this.wordMap = this.countTerms(t);
 	}
 	get terms(){
-		return Object.keys(this.wordMap);
+		return Object.keys(this.wordMap).sort();
 	}
 	getCount(t){
 		return this.wordMap[t];
@@ -13,14 +13,15 @@ class TermFreq{
 		if (text == ""){
 			return wordMap;
 		}
-		var textArray = text.split(" ");
+		//add regex to split
+		var patt = /[^\w'-]+/;
+		var textArray = text.split(patt);
 		for (var x = 0; x < textArray.length; x++){
 			if (textArray[x] != ""){
-				if (wordMap[textArray[x]] == undefined){
-					wordMap[textArray[x]] = 1;
-				}
-				else{
-					wordMap[textArray[x]]++;
+				if (wordMap[textArray[x].toLowerCase()] == undefined){
+					wordMap[textArray[x].toLowerCase()] = 1;
+				} else{
+					wordMap[textArray[x].toLowerCase()]++;
 				}
 			}
 		}

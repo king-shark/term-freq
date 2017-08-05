@@ -8,22 +8,28 @@
 
 <h1>This is a Heading</h1>
 <p>This is a paragraph.</p>
-<textarea id = "myTextArea"
+<textarea id = "inputText"
 	rows = "3"
 	cols = "80"></textarea>
-<button type = "button" onclick="countText(document.getElementById('myTextArea').value)">
+<button type = "button" onclick="countText(document.getElementById('inputText').value)">
 	Click Me
 	</button>
-<script>
 
+<br><br><br>
+<textarea id = "outputText"
+	rows = "30"
+	cols = "100"></textarea>
+
+<script>
 function countText(text){
 	var tf = new TermFreq(text);
 	var termList = tf.terms;
-	console.log("blah ", termList);
+	console.log(tf);
+	//console.log("termList ", termList);
 	for (var x = 0; x < termList.length; x++){
 		var word = termList[x];
 		var count = tf.getCount(word);
-		console.log("word: " + word + " count: " + count);
+		outputText.value = outputText.value + word + ": " + count + "\n"
 	}
 }
 
