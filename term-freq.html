@@ -11,15 +11,35 @@
 <textarea id = "myTextArea"
 	rows = "3"
 	cols = "80"></textarea>
-<button type = "button" onclick="countText(document.getElementById('myTextArea').value)">
-	Click Me
+<div class="form-group">
+	<label>Filter words with count less than:</label>
+	<input type="text" value="0" id="filter" />
+</div>
+<div class="form-group">
+	<label>sort:</label>
+	<select id='sort'>
+		<option>word - ascending</option>
+		<option>word - descending</option>
+		<option>count - ascending</option>
+		<option>count - descending</option>
+	</select>
+</div>
+<button type = "button" onclick="countText();">
+
+	Count Words
 	</button>
 <script>
 
-function countText(text){
+function countText() {
+	var filter = document.getElementById('filter').value;
+	filter = parseInt(filter);
+	var sortElement = document.getElementById('sort');
+	var sortText = sortElement.options[sortElement.selectedIndex].text;
+	var sortByName = sortText.indexOf("word") != -1;
+	var sortAscending = sortText.indexOf("ascending") != -1;
+	var text = document.getElementById('myTextArea').value;
 	var tf = new TermFreq(text);
-	var termList = tf.terms;
-	console.log("blah ", termList);
+	var termList = tf.getTerms(filter, sortByName, sortAscending);
 	for (var x = 0; x < termList.length; x++){
 		var word = termList[x];
 		var count = tf.getCount(word);
