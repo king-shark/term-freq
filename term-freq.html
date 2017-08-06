@@ -5,32 +5,45 @@
 <script src="TermFreq.js"></script>
 </head>
 <body>
-
-<h1>This is a Heading</h1>
-<p>This is a paragraph.</p>
-<textarea id = "inputText"
-	rows = "3"
-	cols = "80"></textarea>
-<button type = "button" onclick="countText(document.getElementById('inputText').value)">
-	Click Me
-	</button>
+<textarea id="inputText" rows="3" cols="80"></textarea>
+<div class="form-group">
+	<label>Filter words with count less than:</label>
+	<input type="text" value="0" id="filter" />
+</div>
+<div class="form-group">
+	<label>sort:</label>
+	<select id='sort'>
+		<option>word - ascending</option>
+		<option>word - descending</option>
+		<option>count - ascending</option>
+		<option>count - descending</option>
+	</select>
+</div>
+<button type = "button" onclick="countText();">Count Words</button>
 
 <br><br><br>
-<textarea id = "outputText"
-	rows = "30"
-	cols = "100"></textarea>
+<textarea id="outputText" rows="30" cols="100"></textarea>
 
 <script>
-function countText(text){
-	var tf = new TermFreq(text);
-	var termList = tf.terms;
-	console.log(tf);
-	//console.log("termList ", termList);
+
+function countText() {
+    var filter = document.getElementById('filter').value;
+    filter = parseInt(filter);
+    var sortElement = document.getElementById('sort');
+    var sortText = sortElement.options[sortElement.selectedIndex].text;
+    var sortByName = sortText.indexOf("word") != -1;
+    var sortAscending = sortText.indexOf("ascending") != -1;
+    var text = document.getElementById('inputText').value;
+    var tf = new TermFreq(text);
+    var termList = tf.getTerms(filter, sortByName, sortAscending);
+    var output = "";
 	for (var x = 0; x < termList.length; x++){
-		var word = termList[x];
-		var count = tf.getCount(word);
-		outputText.value = outputText.value + word + ": " + count + "\n"
-	}
+        var word = termList[x];
+        var count = tf.getCount(word);
+        output = output + word + ": " + count + "\n"
+    }
+    var outputText = document.getElementById('outputText');
+    outputText.value = output;
 }
 
 </script>
